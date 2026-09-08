@@ -13,7 +13,7 @@ Tasks are grouped into milestones. After each milestone is completed, we pause f
 ---
 
 ## Milestone 2: Database Layer & Vector Indexing
-- [ ] Update `app/db/models.py`:
+- [x] Update `app/db/models.py`:
   - Add `user_id` (indexed, default `"kaushal"`)
   - Add `url`, `content_type` (`note`, `youtube`, `instagram`, `link`)
   - Add `auto_tags` (Postgres `ARRAY(String)`)
@@ -21,8 +21,8 @@ Tasks are grouped into milestones. After each milestone is completed, we pause f
   - Add `embedding` (`Vector(768)`)
   - Add HNSW vector index (`vector_cosine_ops`)
   - Add GIN Trigram index (`gin_trgm_ops`) on content + tags
-- [ ] Update `app/main.py` lifespan to ensure `vector` and `pg_trgm` PostgreSQL extensions are loaded
-- [ ] **Milestone 2 Review**: Pause and confirm DB schema & vector index setup
+- [x] Update `app/main.py` lifespan to ensure `vector` and `pg_trgm` PostgreSQL extensions are loaded
+- [x] **Milestone 2 Review**: Pause and confirm DB schema & vector index setup
 
 ---
 

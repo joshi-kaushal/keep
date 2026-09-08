@@ -10,8 +10,13 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 
+from sqlalchemy import text
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
+    with engine.begin() as conn:
+        conn.execute(text("CREATE EXTENSION IF NOT EXISTS vector;"))
+        conn.execute(text("CREATE EXTENSION IF NOT EXISTS pg_trgm;"))
     Base.metadata.create_all(bind=engine)
     logger.info("Database schema ensured.")
     yield
