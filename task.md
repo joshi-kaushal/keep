@@ -5,10 +5,10 @@ Tasks are grouped into milestones. After each milestone is completed, we pause f
 ---
 
 ## Milestone 1: Dependencies, Infrastructure & Config Setup
-- [ ] Update `requirements.txt` with `pgvector`, `langchain`, `langchain-google-genai`, `beautifulsoup4`
-- [ ] Update `docker-compose.yml` db service to `pgvector/pgvector:pg16`
-- [ ] Update `app/config.py` to add `default_user_id` and ensure `gemini_api_key` configuration
-- [ ] **Milestone 1 Review**: Pause and confirm dependencies and environment setup
+- [x] Update `requirements.txt` with `pgvector`, `langchain`, `langchain-google-genai`, `beautifulsoup4`
+- [x] Update `docker-compose.yml` db service to `pgvector/pgvector:pg16`
+- [x] Update `app/config.py` to add `default_user_id` and ensure `gemini_api_key` configuration
+- [x] **Milestone 1 Review**: Pause and confirm dependencies and environment setup
 
 ---
 

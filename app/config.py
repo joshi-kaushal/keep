@@ -13,6 +13,7 @@ class Settings(BaseSettings):
     extension_token: str = os.getenv("EXTENSION_TOKEN", "")
     esp32_token: str = os.getenv("ESP32_TOKEN", "")
     gemini_api_key: str = os.getenv("GEMINI_API_KEY", "")
+    default_user_id: str = os.getenv("DEFAULT_USER_ID", "bottlerekt")
     port: int = int(os.getenv("PORT", "3005"))
 
     class Config:
