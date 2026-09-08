@@ -45,7 +45,7 @@ class Item(Base):
         CheckConstraint("context IN ('text', 'audio', 'link')", name="chk_context"),
         CheckConstraint("kind IN ('note', 'link', 'transcript')", name="chk_kind"),
         CheckConstraint("source IN ('whatsapp', 'extension', 'esp32', 'bookmark')", name="chk_source"),
-        CheckConstraint("content_type IN ('note', 'youtube', 'instagram', 'link')", name="chk_content_type"),
+        CheckConstraint("content_type IN ('note', 'youtube', 'instagram', 'twitter', 'link')", name="chk_content_type"),
         CheckConstraint("enrichment_status IN ('done', 'skipped', 'failed')", name="chk_enrich_status"),
         Index("idx_items_user_id", "user_id"),
         Index("idx_items_created_at", "created_at"),

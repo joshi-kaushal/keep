@@ -27,29 +27,29 @@ Tasks are grouped into milestones. After each milestone is completed, we pause f
 ---
 
 ## Milestone 3: Enrichment & LangChain RAG Core Services
-- [ ] Implement `app/services/enrichment.py`:
+- [x] Implement `app/services/enrichment.py`:
   - `detect_content_type(text)` for YouTube, Instagram, Generic URLs, and Notes
   - `enrich_url(...)` with 5s timeout (YouTube oEmbed, BeautifulSoup for `<title>` & `<meta>` description)
-- [ ] Implement `app/services/rag.py`:
+- [x] Implement `app/services/rag.py`:
   - LangChain Gemini 2.0 Flash tag generator (generating 3–6 concrete search tags)
   - LangChain `text-embedding-004` embedder
   - LangChain conversational QA synthesis chain with WhatsApp buddy persona (1–2 sentences, humanized texting style)
   - Vector similarity search (`>= 0.75`) with `pg_trgm` keyword fallback
-- [ ] **Milestone 3 Review**: Pause and confirm enrichment & LangChain pipeline logic
+- [x] **Milestone 3 Review**: Pause and confirm enrichment & LangChain pipeline logic
 
 ---
 
 ## Milestone 4: Webhook & Ingestion Integration
-- [ ] Update `app/routers/webhook.py`:
+- [x] Update `app/routers/webhook.py`:
   - Support multi-tenancy: extract and normalize phone number from `payload["from"]`
   - Support `/keep` and `/ai` via both `payload["intent"]` and `raw_text` prefix
   - Expose callable `handle_keep(...)` and `handle_ai(...)`
   - Connect saving pipeline with WhatsApp confirmation
   - Connect retrieval pipeline with WhatsApp conversational answer via Odyssey egress
-- [ ] Update `app/routers/ingest.py`:
+- [x] Update `app/routers/ingest.py`:
   - Support `x-user-id` header (fallback to `default_user_id`)
   - Integrate enrichment and embedding for extension, bookmark, and ESP32 ingestions
-- [ ] **Milestone 4 Review**: Pause and confirm webhook & ingestion endpoints
+- [x] **Milestone 4 Review**: Pause and confirm webhook & ingestion endpoints
 
 ---
 
