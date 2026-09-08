@@ -11,6 +11,17 @@ Keep is a personal note and link capture service. This document outlines the arc
 - **Multi-Tenancy by Phone Number**: Open multi-tenancy where each user's snippets are partitioned strictly by their normalized E.164 phone number (`user_id`).
 - **Multi-Source Support**: WhatsApp bot, browser extension, bookmark imports, and ESP32 hardware capture seamlessly participate in the same vector memory store.
 
+# Why we changed the embedding pipeline
+
+- **HNSW index limit**: pgvector’s HNSW (and IVFFlat) indexes support at most **2000 dimensions**. The Gemini `gemini-embedding-001` model returns **3072 dimensions**, which caused the database startup to fail with `ProgramLimitExceeded`.
+- **LangChain limitation**: The `GoogleGenerativeAIEmbeddings` wrapper does **not expose** the `outputDimensionality` parameter, so we could not force a 768‑dimensional output using the wrapper.
+- **Solution**:
+  1. **Switch to a direct HTTP call** to the Gemini embedding endpoint, specifying `"outputDimensionality": 768`. This returns the expected 768‑dim vector that works with HNSW.
+  2. **Restore DB schema** to `Vector(768)` because the vector length now matches the index requirements.
+  3. **Keep LangChain for chat** (generation & tagging) since it works fine for those parts.
+
+These changes are reflected in the updated `plan.md` and `task.md` sections.
+
 ---
 
 ## 2. Architecture & Data Flow
@@ -90,9 +101,9 @@ CREATE EXTENSION IF NOT EXISTS pg_trgm;
    - LangChain + `gemini-2.0-flash`.
    - Generates 3–6 concrete tags focused on recall use cases (e.g. `sarvesh recommendation`, `twc nandan cafe`, `mocha coffee`, `cafe in parel`).
 4. **Vector Embedding**:
-   - LangChain `GoogleGenerativeAIEmbeddings(model="models/text-embedding-004")` (768 dimensions).
+   - LangChain `GoogleGenerativeAIEmbeddings(model="models/gemini-embedding-001")` (3072 dimensions native).
    - Input: `f"{content}\n{', '.join(auto_tags)}\n{enriched_text or ''}"`.
-
+   - Note: `gemini-embedding-001` natively outputs 3072 dims. We use the full resolution for better semantic recall rather than truncating.
 ### 4.2 Retrieval & Humanized Synthesis Pipeline
 1. **Query Embedding**: Embed user question with `text-embedding-004`.
 2. **Vector Similarity**:

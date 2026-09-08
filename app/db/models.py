@@ -60,7 +60,7 @@ class Item(Base):
         ),
         Index(
             "idx_items_trgm",
-            text("(content || ' ' || array_to_string(auto_tags, ' ')) gin_trgm_ops"),
+            text("content gin_trgm_ops"),
             postgresql_using="gin"
         ),
     )
