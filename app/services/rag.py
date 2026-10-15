@@ -32,7 +32,7 @@ def _embed(text_input: str, task_type: str = "RETRIEVAL_DOCUMENT") -> list[float
     try:
         resp = httpx.post(
             EMBED_URL,
-            params={"key": settings.gemini_api_key},
+            headers={"x-goog-api-key": settings.gemini_api_key},
             json={
                 "content": {"parts": [{"text": text_input}]},
                 "taskType": task_type,
